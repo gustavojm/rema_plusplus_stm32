@@ -4,7 +4,8 @@
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
 	CORE_CM7 
 	USE_HAL_DRIVER 
-	STM32H755xx
+	STM32H755xx 
+	STM32_THREAD_SAFE_STRATEGY=4
     $<$<CONFIG:Debug>:DEBUG>
 )
 
@@ -66,6 +67,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+    ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c
+    ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
     ../Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c

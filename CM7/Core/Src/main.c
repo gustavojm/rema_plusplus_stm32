@@ -47,6 +47,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 
+RNG_HandleTypeDef hrng;
+
 osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
 
@@ -56,6 +58,7 @@ osThreadId defaultTaskHandle;
 void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_RNG_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -107,7 +110,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -136,6 +138,7 @@ Error_Handler();
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_RNG_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -203,8 +206,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 1;
@@ -237,6 +241,33 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief RNG Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RNG_Init(void)
+{
+
+  /* USER CODE BEGIN RNG_Init 0 */
+
+  /* USER CODE END RNG_Init 0 */
+
+  /* USER CODE BEGIN RNG_Init 1 */
+
+  /* USER CODE END RNG_Init 1 */
+  hrng.Instance = RNG;
+  hrng.Init.ClockErrorDetection = RNG_CED_ENABLE;
+  if (HAL_RNG_Init(&hrng) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RNG_Init 2 */
+
+  /* USER CODE END RNG_Init 2 */
+
 }
 
 /**
@@ -294,10 +325,31 @@ void StartDefaultTask(void const * argument)
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
+
+const char* message = "Hello UDP message!\n\r";
+
+osDelay(1000);
+
+ip_addr_t PC_IPADDR;
+IP_ADDR4(&PC_IPADDR, 192, 168, 2, 2);
+
+struct udp_pcb* my_udp = udp_new();
+udp_connect(my_udp, &PC_IPADDR, 55151);
+struct pbuf* udp_buffer = NULL;
+
+/* Infinite loop */
+for (;;) {
+  osDelay(1000);
+  /* !! PBUF_RAM is critical for correct operation !! */
+  udp_buffer = pbuf_alloc(PBUF_TRANSPORT, strlen(message), PBUF_RAM);
+
+  if (udp_buffer != NULL) {
+    memcpy(udp_buffer->payload, message, strlen(message));
+    udp_send(my_udp, udp_buffer);
+    pbuf_free(udp_buffer);
   }
+}
+
   /* USER CODE END 5 */
 }
 
