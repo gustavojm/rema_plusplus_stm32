@@ -10,6 +10,16 @@
     },
     "tasks": [
         {
+            "label": "Pre-Build: Fix CubeMX Errors",
+            "type": "shell",
+            "command": "${workspaceFolder}/fix_cubemx_errors.sh",
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "problemMatcher": []
+        },        
+        {
             "type": "shell",
             "label": "CubeProg: Flash CM7",
             "command": "STM32_Programmer_CLI",
@@ -31,9 +41,10 @@
             "label": "Build + Flash CM7",
             "dependsOrder": "sequence",
             "dependsOn": [
+                "Pre-Build: Fix CubeMX Errors",
                 "CMake: clean rebuild",
                 "CubeProg: Flash CM7"
-            ]
+            ]            
         },
         {
             "type": "shell",

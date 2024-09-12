@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "cmsis_os.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "reent.h": "c",
+        "stm32_lock.h": "c"
     }
 }

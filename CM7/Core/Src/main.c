@@ -142,7 +142,8 @@ Error_Handler();
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_RNG_Init();
-  MX_USART3_UART_Init();  
+  MX_USART3_UART_Init();
+  
   /* USER CODE BEGIN 2 */
   // printf redirection in retarget.h should now be active
   printf("Printing to USART3");

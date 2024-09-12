@@ -4,8 +4,7 @@
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
 	CORE_CM7 
 	USE_HAL_DRIVER 
-	STM32H755xx 
-	STM32_THREAD_SAFE_STRATEGY=4
+	STM32H755xx
     $<$<CONFIG:Debug>:DEBUG>
 )
 

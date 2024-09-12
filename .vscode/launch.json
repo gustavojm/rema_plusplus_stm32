@@ -27,7 +27,7 @@
                 "-t", "-s", 
                 "-k"
             ],
-            "preLaunchTask": "Build + Flash CM7"
+            "preLaunchTask": "Build + Flash CM7",
         },
         {
             "name": "Attach CM7 - ST-Link",
