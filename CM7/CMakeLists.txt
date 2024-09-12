@@ -50,7 +50,6 @@ set(CMAKE_CXX_COMPILER_FORCED "true")
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
-    DATA_IN_D2_SRAM
     # Add user defined symbols
 )
 
