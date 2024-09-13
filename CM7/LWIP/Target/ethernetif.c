@@ -96,7 +96,7 @@ typedef struct
 
 /* Memory Pool Declaration */
 #define ETH_RX_BUFFER_CNT             12U
-LWIP_MEMPOOL_DECLARE(RX_POOL, ETH_RX_BUFFER_CNT, sizeof(RxBuff_t), "Zero-copy RX PBUF pool");
+LWIP_MEMPOOL_DECLARE(RX_POOL, ETH_RX_BUFFER_CNT, sizeof(RxBuff_t), "Zero-copy RX PBUF pool")
 
 /* Variable Definitions */
 static uint8_t RxAllocStatus;

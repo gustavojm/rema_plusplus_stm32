@@ -4,6 +4,6 @@
 
 method=source_dir
 command=
-source_dir=/home/gustavo/STM32/LWIP_FREERTOS/CM4
+source_dir=/home/gustavo/rema/firmware/rema_plusplus_stm32/CM4
 work_dir=
 

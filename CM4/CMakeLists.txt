@@ -33,7 +33,7 @@ set(STM32_LINKER_OPTION  )
 include("../gcc-arm-none-eabi.cmake")
 
 # Set the project name
-set(CMAKE_PROJECT_NAME LWIP_FREERTOS_CM4)
+set(CMAKE_PROJECT_NAME rema_plusplus_stm32_CM4)
 project(${CMAKE_PROJECT_NAME})
 
 # Create an executable object type

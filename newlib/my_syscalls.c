@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include <sys/times.h>
 
+#include "FreeRTOS.h"
+
 /* Defining malloc/free should overwrite the standard versions provided by the compiler. */
 
 void *malloc(size_t size) {

@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "user_main.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -143,10 +143,14 @@ Error_Handler();
   MX_GPIO_Init();
   MX_RNG_Init();
   MX_USART3_UART_Init();
-  
   /* USER CODE BEGIN 2 */
   // printf redirection in retarget.h should now be active
   printf("Printing to USART3");
+
+  user_main();
+
+
+
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -372,33 +376,11 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
 
-const char* message = "Hello UDP message!\n\r";
-
-osDelay(1000);
-
-ip_addr_t PC_IPADDR;
-IP_ADDR4(&PC_IPADDR, 192, 168, 2, 2);
-
-struct udp_pcb* my_udp = udp_new();
-udp_connect(my_udp, &PC_IPADDR, 55151);
-struct pbuf* udp_buffer = NULL;
-
-/* Infinite loop */
-for (;;) {
-  osDelay(1000);
-  /* !! PBUF_RAM is critical for correct operation !! */
-  udp_buffer = pbuf_alloc(PBUF_TRANSPORT, strlen(message), PBUF_RAM);
-
-  if (udp_buffer != NULL) {
-    memcpy(udp_buffer->payload, message, strlen(message));
-    udp_send(my_udp, udp_buffer);
-    pbuf_free(udp_buffer);
+  for (;;) {
+    osDelay(1000);
+    /* USER CODE END 5 */
   }
 }
-
-  /* USER CODE END 5 */
-}
-
  /* MPU Configuration */
 
 void MPU_Config(void)

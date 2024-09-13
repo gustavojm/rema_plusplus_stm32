@@ -3,6 +3,12 @@
         "cmsis_os.h": "c",
         "main.h": "c",
         "reent.h": "c",
-        "stm32_lock.h": "c"
-    }
+        "stm32_lock.h": "c",
+        "freertos.h": "c",
+        "arch.h": "c",
+        "cstring": "cpp",
+        "cerrno": "cpp",
+        "user_main.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": false
 }

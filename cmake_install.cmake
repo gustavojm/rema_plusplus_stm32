@@ -1,4 +1,4 @@
-# Install script for directory: /home/gustavo/STM32/LWIP_FREERTOS
+# Install script for directory: /home/gustavo/rema/firmware/rema_plusplus_stm32
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/gustavo/STM32/LWIP_FREERTOS/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/gustavo/rema/firmware/rema_plusplus/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

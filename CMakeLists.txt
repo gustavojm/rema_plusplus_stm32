@@ -15,7 +15,7 @@ set(CMAKE_CXX_COMPILER_FORCED "true")
 include("gcc-arm-none-eabi.cmake")
 
 # Set the project name
-set(CMAKE_PROJECT_NAME LWIP_FREERTOS)
+set(CMAKE_PROJECT_NAME rema_plusplus)
 
 # Core project settings
 project(${CMAKE_PROJECT_NAME})

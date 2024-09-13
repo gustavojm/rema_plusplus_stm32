@@ -42,7 +42,7 @@
 /*----- WITH_RTOS enabled (Since FREERTOS is set) -----*/
 #define WITH_RTOS 1
 /* Temporary workaround to avoid conflict on errno defined in STM32CubeIDE and lwip sys_arch.c errno */
-#undef LWIP_PROVIDE_ERRNO
+//#undef LWIP_PROVIDE_ERRNO
 /*----- CHECKSUM_BY_HARDWARE enabled -----*/
 #define CHECKSUM_BY_HARDWARE 1
 /*-----------------------------------------------------------------------------*/
@@ -115,8 +115,10 @@
 #define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-#undef LWIP_PROVIDE_ERRNO
-#define LWIP_ERRNO_STDINCLUDE
+//#define LWIP_ERRNO_STDINCLUDE
+
+#define LWIP_POSIX_SOCKETS_IO_NAMES 0
+#define LWIP_COMPAT_SOCKETS 0
 /* USER CODE END 1 */
 
 #ifdef __cplusplus

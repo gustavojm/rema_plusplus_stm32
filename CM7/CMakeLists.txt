@@ -12,6 +12,10 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
+
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
@@ -23,7 +27,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 # Compiler options
-set(STM32_MCU_FLAGS  "-mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard " )
+set(STM32_MCU_FLAGS  "-mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -fcommon -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -Wno-unused-but-set-variable -Wno-missing-field-initializers")
 
 #Linker options
 set(STM32_LINKER_SCRIPT stm32h755xx_flash_CM7.ld)
@@ -33,8 +37,10 @@ set(STM32_LINKER_OPTION  )
 include("../gcc-arm-none-eabi.cmake")
 
 # Set the project name
-set(CMAKE_PROJECT_NAME LWIP_FREERTOS_CM7)
-project(${CMAKE_PROJECT_NAME})
+set(CMAKE_PROJECT_NAME rema_plusplus_stm32_CM7)
+project(${CMAKE_PROJECT_NAME}
+    LANGUAGES C CXX
+)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -43,7 +49,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 include("mx-generated.cmake")
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(C CXX ASM)
 
 # In order to use CMake for cross-compiling
 set(CMAKE_CXX_COMPILER_FORCED "true") 
@@ -56,12 +62,26 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    app/inc
+    ../../../encoders/inc
+)
+
+include(FetchContent)
+FetchContent_Declare(ArduinoJson
+    GIT_REPOSITORY https://github.com/bblanchon/ArduinoJson.git
+    GIT_TAG        v7.1.0
+)
+FetchContent_MakeAvailable(ArduinoJson)
+
+file(GLOB_RECURSE SOURCES
+    app/src/*.cpp
 )
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ../newlib/my_syscalls.c
+    ${SOURCES}
 )
 
 # Link directories setup
@@ -72,6 +92,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined libraries
+    ArduinoJson
 )
 
 # Validate that STM32CubeMX code is compatible with C standard
